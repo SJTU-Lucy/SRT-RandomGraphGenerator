@@ -135,8 +135,14 @@ void createCurve(Point* originPoint, int originCount,
 }
 
 
-int main()
-{					   
+int main(int argc, char* argv[])
+{
+        if (argc != 2)
+	{
+	  std::cout << "usage: " << argv[0] << " path_file" << std::endl;
+	  exit(-1);
+	}
+					   
 	srand((int)time(NULL));
 	Point* control = new Point[36];
 	double start = double(rand()) / RAND_MAX * 20 + 20;
@@ -159,7 +165,8 @@ int main()
 	createCurve(control, 36, curvePoint, left, right);
     std::ofstream outfile;
     // write your target path here!
-    outfile.open("/home/lucy/Desktop/path.txt");
+    // outfile.open("/home/lucy/Desktop/path.txt");
+    outfile.open(argv[1]);
     for(int i=0;i<curvePoint.size();++i)
         outfile << curvePoint[i].x << " " << curvePoint[i].y << std::endl;
     outfile.close();
